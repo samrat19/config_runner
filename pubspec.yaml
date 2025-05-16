@@ -1,5 +1,5 @@
 name: config_runner
-description: "A new Flutter project."
+description: "generate configuration files for your project"
 version: 0.0.1
 homepage: https://github.com/samrat19/config_runner
 repository: https://github.com/samrat19/config_runner
