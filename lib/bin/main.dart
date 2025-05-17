@@ -1,9 +1,7 @@
-import 'generator.dart';
-
 main(){
   //createEnvironment();
   //generateModel('User');
 
-  generateAPI();
+  //generateAPI();
   //generateModule(moduleName: 'All-Outlet');
 }

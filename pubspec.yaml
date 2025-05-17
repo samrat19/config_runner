@@ -1,8 +1,15 @@
 name: config_runner
-description: "A powerful Dart command-line tool that streamlines Flutter project setup by automating the creation of essential configuration and feature module boilerplate. It generates environment-specific configuration files and scaffolding with your modules"
-version: 0.0.4
+description: "A powerful Dart CLI tool to streamline Flutter project setup by automating the creation of essential configuration and feature module boilerplate."
+version: 0.0.5
 homepage: https://github.com/samrat19/config_runner
 repository: https://github.com/samrat19/config_runner
+
+platforms:
+  android:
+  ios:
+  macos:
+  windows:
+  linux:
 
 environment:
   sdk: ^3.6.0
