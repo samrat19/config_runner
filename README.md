@@ -1,6 +1,6 @@
 # 📦 config_runner
 
-**Version:** 0.0.6 
+**Version:** 0.0.7 
 **Published:** May 17, 2025
 
 `config_runner` is a Dart CLI utility designed to simplify the setup of environment configurations and modular code scaffolding for Flutter projects. It automates the generation of environment files (e.g., dev, uat, prod) and creates a boilerplate module structure including repositories, providers, and screens.
