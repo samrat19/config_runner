@@ -149,7 +149,8 @@ Future<void> generateAPI() async {
       print(template);
       final content = template
           .replaceAll('{{className}}', element['className'])
-          .replaceAll('{{env}}', element['env']).replaceAll('{{projectName}}', projectName);
+          .replaceAll('{{env}}', element['env'])
+          .replaceAll('{{projectName}}', projectName);
 
       print('✅ Here');
 
@@ -178,9 +179,214 @@ Future<void> generateAPI() async {
   await _createResource();
 }
 
+Future<void> _createRepo({required String moduleName}) async {
+  try {
+    final repoTemplate = await resolveTemplatePath('module/repo.txt');
+
+    final repoImplementationTemplate =
+        await resolveTemplatePath('module/repo_impl.txt');
+
+    String repoClassName = '${_toPascalCase(moduleName)}Repo';
+
+    String repoImplementationClassName = '${repoClassName}Implementation';
+
+    String repoFileName = toCase(repoClassName);
+
+    String repoImplementationFileName = toCase(repoImplementationClassName);
+
+    final repoContext = repoTemplate.replaceAll('{{repoName}}', repoClassName);
+
+    final repoImplementationContext = repoImplementationTemplate
+        .replaceAll('{{className}}', repoImplementationClassName)
+        .replaceAll('{{repoName}}', repoClassName)
+        .replaceAll('{{repoFileName}}', repoFileName);
+
+    print('✅ creating your repo');
+
+    final dir = Directory('lib/module');
+
+    print('✅ generating.....');
+
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
+
+    final dir1 = Directory('lib/module/$moduleName');
+
+    print('✅ generating.....');
+
+    if (!await dir1.exists()) {
+      await dir1.create(recursive: true);
+    }
+
+    final dir2 = Directory('lib/module/$moduleName/repo');
+
+    print('✅ generating.....');
+
+    if (!await dir2.exists()) {
+      await dir2.create(recursive: true);
+    }
+
+    print('✅ adding file.......');
+
+    final outputFile = File('${dir2.path}/$repoFileName.dart');
+    await outputFile.writeAsString(repoContext);
+
+    final outputFile1 = File('${dir2.path}/$repoImplementationFileName.dart');
+    await outputFile1.writeAsString(repoImplementationContext);
+
+    print('repo added successfully ✅');
+
+    print('✅ File created at ${outputFile.path}');
+  } catch (e, stackTrace) {
+    log('Exception: $e $stackTrace');
+  }
+}
+
+Future<void> _createProvider({required String moduleName}) async {
+  try {
+    final providerTemplate = await resolveTemplatePath('module/provider.txt');
+
+    String providerClassName = '${_toPascalCase(moduleName)}Provider';
+
+    String providerFileName = toCase(providerClassName);
+
+    final providerContext =
+        providerTemplate.replaceAll('{{className}}', providerClassName);
+
+    print('✅ creating your provider');
+
+    final dir = Directory('lib/module');
+
+    print('✅ generating.....');
+
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
+
+    final dir1 = Directory('lib/module/$moduleName');
+
+    print('✅ generating.....');
+
+    if (!await dir1.exists()) {
+      await dir1.create(recursive: true);
+    }
+
+    final dir2 = Directory('lib/module/$moduleName/provider');
+
+    print('✅ generating.....');
+
+    if (!await dir2.exists()) {
+      await dir2.create(recursive: true);
+    }
+
+    print('✅ adding file.......');
+
+    final outputFile = File('${dir2.path}/$providerFileName.dart');
+    await outputFile.writeAsString(providerContext);
+
+    print('provider added successfully ✅');
+
+    print('✅ File created at ${outputFile.path}');
+  } catch (e, stackTrace) {
+    log('Exception: $e $stackTrace');
+  }
+}
+
+Future<void> _createScreen({required String moduleName}) async {
+  try {
+    final screenTemplate = await resolveTemplatePath('module/screen.txt');
+
+    String providerClassName = '${_toPascalCase(moduleName)}Provider';
+
+    String providerFileName = toCase(providerClassName);
+
+    String screenClassName = '${_toPascalCase(moduleName)}Screen';
+
+    String screenFileName = toCase(screenClassName);
+
+    final screenContext = screenTemplate
+        .replaceAll('{{ClassName}}', screenClassName)
+        .replaceAll('{{ProviderName}}', providerClassName)
+        .replaceAll('{{provider_file_name}}', providerFileName);
+
+    print('✅ creating your provider');
+
+    final dir = Directory('lib/module');
+
+    print('✅ generating.....');
+
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
+
+    final dir1 = Directory('lib/module/$moduleName');
+
+    print('✅ generating.....');
+
+    if (!await dir1.exists()) {
+      await dir1.create(recursive: true);
+    }
+
+    final dir2 = Directory('lib/module/$moduleName/screen');
+
+    print('✅ generating.....');
+
+    if (!await dir2.exists()) {
+      await dir2.create(recursive: true);
+    }
+
+    print('✅ adding file.......');
+
+    final outputFile = File('${dir2.path}/$screenFileName.dart');
+    await outputFile.writeAsString(screenContext);
+
+    print('screen added successfully ✅');
+
+    print('✅ File created at ${outputFile.path}');
+  } catch (e, stackTrace) {
+    log('Exception: $e $stackTrace');
+  }
+}
+
+Future<void> generateModule({required String moduleName}) async {
+  ///create repo
+  ///
+  await _createRepo(moduleName: moduleName);
+
+  ///create provider
+  ///
+  await _createProvider(moduleName: moduleName);
+
+  ///create screen
+  ///
+  _createScreen(moduleName: moduleName);
+}
+
 Future<String> _getProjectName() async {
   final pubspec = File('pubspec.yaml');
   final contents = await pubspec.readAsString();
   final doc = loadYaml(contents);
   return doc['name'] ?? 'add-project-name-here';
+}
+
+String _toPascalCase(String input) {
+  return input
+      .split('-')
+      .map((word) => word.isNotEmpty
+          ? word[0].toUpperCase() + word.substring(1).toLowerCase()
+          : '')
+      .join();
+}
+
+String toCase(String input) {
+  final buffer = StringBuffer();
+  for (int i = 0; i < input.length; i++) {
+    String char = input[i];
+    if (char.toUpperCase() == char && i != 0) {
+      buffer.write('_');
+    }
+    buffer.write(char.toLowerCase());
+  }
+  return buffer.toString();
 }
