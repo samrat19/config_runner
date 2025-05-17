@@ -4,6 +4,15 @@ version: 0.0.5
 homepage: https://github.com/samrat19/config_runner
 repository: https://github.com/samrat19/config_runner
 
+topics:
+  - flutter
+  - cli
+  - codegen
+  - environment
+  - get_it
+  - injectable
+  - provider
+
 platforms:
   android:
   ios:
