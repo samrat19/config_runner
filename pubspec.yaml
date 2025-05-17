@@ -34,4 +34,4 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 executables:
-  config: lib/bin/config.dart
+  config:

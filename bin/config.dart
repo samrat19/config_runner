@@ -1,6 +1,7 @@
 import 'dart:developer';
 
-import 'package:config_runner/config_runner.dart';
+//import 'package:config_runner/config_runner.dart';
+import 'package:config_runner/bin/generator.dart';
 
 
 void main(List<String> args) async {
