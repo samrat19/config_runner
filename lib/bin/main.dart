@@ -4,6 +4,6 @@ main(){
   //createEnvironment();
   //generateModel('User');
 
-  //generateAPI();
-  generateModule(moduleName: 'all-outlet');
+  generateAPI();
+  //generateModule(moduleName: 'All-Outlet');
 }

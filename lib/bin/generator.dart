@@ -352,15 +352,15 @@ Future<void> _createScreen({required String moduleName}) async {
 Future<void> generateModule({required String moduleName}) async {
   ///create repo
   ///
-  await _createRepo(moduleName: moduleName);
+  await _createRepo(moduleName: moduleName.toLowerCase());
 
   ///create provider
   ///
-  await _createProvider(moduleName: moduleName);
+  await _createProvider(moduleName: moduleName.toLowerCase());
 
   ///create screen
   ///
-  _createScreen(moduleName: moduleName);
+  _createScreen(moduleName: moduleName.toLowerCase());
 }
 
 Future<String> _getProjectName() async {
