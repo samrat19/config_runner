@@ -7,5 +7,5 @@ import 'api_url.dart';
 @Environment(Env.{{env}})
 class {{className}} extends APIUrl {
   @override
-  String get baseURL => '';
+  String get baseURL => 'add your {{env}} base URL';
 }

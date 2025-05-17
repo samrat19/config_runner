@@ -1,3 +1,8 @@
+## 0.0.8
+
+* makes some changes
+
+
 ## 0.0.7
 
 * adds documentation
