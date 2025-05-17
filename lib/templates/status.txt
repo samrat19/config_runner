@@ -1,0 +1,8 @@
+enum Status{
+  inactive,
+  unAuthenticated,
+  loading,
+  success,
+  error,
+  lock,
+}

@@ -1,0 +1,11 @@
+import 'package:injectable/injectable.dart';
+import 'package:{{projectName}}/core/environment.dart';
+
+import 'api_url.dart';
+
+@Injectable(as: APIUrl)
+@Environment(Env.{{env}})
+class {{className}} extends APIUrl {
+  @override
+  String get baseURL => '';
+}

@@ -1,0 +1,18 @@
+import 'status.dart';
+
+class Resource {
+  final Status status;
+  dynamic data;
+  String? message;
+
+  Resource({
+    required this.status,
+    this.data,
+    this.message,
+  });
+
+  @override
+  String toString() {
+    return 'Resource(status: $status, message: $message, data: $data)';
+  }
+}
