@@ -1,6 +1,5 @@
-import 'dart:developer';
 
-import 'package:config_runner/bin/generator.dart';
+import 'package:config_runner/config_runner.dart';
 
 
 void main(List<String> args) async {
@@ -16,6 +15,6 @@ void main(List<String> args) async {
       await generateAPI();
       break;
     default:
-      log('Unknown type: $type');
+      print('Unknown type: $type');
   }
 }
