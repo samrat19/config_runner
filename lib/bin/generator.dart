@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:yaml/yaml.dart';
@@ -12,7 +11,7 @@ Future<String> _resolveTemplatePath(String relativePath) async {
   }
 
   final file = File.fromUri(resolvedUri);
-  log(file.path);
+  print(file.path);
   if (!await file.exists()) {
     throw Exception('Template not found at ${file.path}');
   }
@@ -24,23 +23,23 @@ Future<String> _resolveTemplatePath(String relativePath) async {
 Future<void> _createEnvironment() async {
   try {
     final template = await _resolveTemplatePath('env.txt');
-    log('✅ creating your environment');
+    print('✅ creating your environment');
 
     final dir = Directory('lib/core');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
 
-    log('✅ adding environment.......');
+    print('✅ adding environment.......');
 
     final outputFile = File('lib/core/environment.dart');
     await outputFile.writeAsString(template);
-    log('✅ Environment created at ${outputFile.path}');
+    print('✅ Environment created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
@@ -48,69 +47,69 @@ Future<void> _createEnvironment() async {
 Future<void> _createAPIURL() async {
   try {
     final template = await _resolveTemplatePath('api_url.txt');
-    log('✅ creating your api url class');
+    print('✅ creating your api url class');
 
     final dir = Directory('lib/api');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('lib/api/api_url.dart');
     await outputFile.writeAsString(template);
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
 Future<void> _createStatus() async {
   try {
     final template = await _resolveTemplatePath('status.txt');
-    log('✅ creating your api url class');
+    print('✅ creating your api url class');
 
     final dir = Directory('lib/core');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('lib/core/status.dart');
     await outputFile.writeAsString(template);
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
 Future<void> _createResource() async {
   try {
     final template = await _resolveTemplatePath('resource.txt');
-    log('✅ creating your api url class');
+    print('✅ creating your api url class');
 
     final dir = Directory('lib/core');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('lib/core/resource.dart');
     await outputFile.writeAsString(template);
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
@@ -141,31 +140,31 @@ Future<void> generateAPI() async {
   Future.forEach(env, (element) async {
     try {
       final template = await _resolveTemplatePath('generate_api_url.txt');
-      log(template);
+      print(template);
       final content = template
           .replaceAll('{{className}}', element['className'])
           .replaceAll('{{env}}', element['env'])
           .replaceAll('{{projectName}}', projectName);
 
-      log('✅ Here');
+      print('✅ Here');
 
       final dir = Directory('lib/api');
 
-      log('✅ generating.....');
+      print('✅ generating.....');
 
       if (!await dir.exists()) {
-        log('✅ creating model.......');
+        print('✅ creating model.......');
         await dir.create(recursive: true);
-        log('✅ model created.......');
+        print('✅ model created.......');
       }
 
-      log('✅ adding file.......');
+      print('✅ adding file.......');
 
       final outputFile = File('lib/api/${element['file_name']}.dart');
       await outputFile.writeAsString(content);
-      log('✅ File created');
+      print('✅ File created');
     } catch (e, stackTrace) {
-      log('Exception: $e $stackTrace');
+      print('Exception: $e $stackTrace');
     }
   });
 
@@ -196,11 +195,11 @@ Future<void> _createRepo({required String moduleName}) async {
         .replaceAll('{{repoName}}', repoClassName)
         .replaceAll('{{repoFileName}}', repoFileName);
 
-    log('✅ creating your repo');
+    print('✅ creating your repo');
 
     final dir = Directory('lib/module');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
@@ -208,7 +207,7 @@ Future<void> _createRepo({required String moduleName}) async {
 
     final dir1 = Directory('lib/module/$moduleName');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir1.exists()) {
       await dir1.create(recursive: true);
@@ -216,13 +215,13 @@ Future<void> _createRepo({required String moduleName}) async {
 
     final dir2 = Directory('lib/module/$moduleName/repo');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir2.exists()) {
       await dir2.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('${dir2.path}/$repoFileName.dart');
     await outputFile.writeAsString(repoContext);
@@ -230,11 +229,11 @@ Future<void> _createRepo({required String moduleName}) async {
     final outputFile1 = File('${dir2.path}/$repoImplementationFileName.dart');
     await outputFile1.writeAsString(repoImplementationContext);
 
-    log('repo added successfully ✅');
+    print('repo added successfully ✅');
 
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
@@ -249,11 +248,11 @@ Future<void> _createProvider({required String moduleName}) async {
     final providerContext =
         providerTemplate.replaceAll('{{className}}', providerClassName);
 
-    log('✅ creating your provider');
+    print('✅ creating your provider');
 
     final dir = Directory('lib/module');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
@@ -261,7 +260,7 @@ Future<void> _createProvider({required String moduleName}) async {
 
     final dir1 = Directory('lib/module/$moduleName');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir1.exists()) {
       await dir1.create(recursive: true);
@@ -269,22 +268,22 @@ Future<void> _createProvider({required String moduleName}) async {
 
     final dir2 = Directory('lib/module/$moduleName/provider');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir2.exists()) {
       await dir2.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('${dir2.path}/$providerFileName.dart');
     await outputFile.writeAsString(providerContext);
 
-    log('provider added successfully ✅');
+    print('provider added successfully ✅');
 
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
@@ -305,11 +304,11 @@ Future<void> _createScreen({required String moduleName}) async {
         .replaceAll('{{ProviderName}}', providerClassName)
         .replaceAll('{{provider_file_name}}', providerFileName);
 
-    log('✅ creating your provider');
+    print('✅ creating your provider');
 
     final dir = Directory('lib/module');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir.exists()) {
       await dir.create(recursive: true);
@@ -317,7 +316,7 @@ Future<void> _createScreen({required String moduleName}) async {
 
     final dir1 = Directory('lib/module/$moduleName');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir1.exists()) {
       await dir1.create(recursive: true);
@@ -325,22 +324,22 @@ Future<void> _createScreen({required String moduleName}) async {
 
     final dir2 = Directory('lib/module/$moduleName/screen');
 
-    log('✅ generating.....');
+    print('✅ generating.....');
 
     if (!await dir2.exists()) {
       await dir2.create(recursive: true);
     }
 
-    log('✅ adding file.......');
+    print('✅ adding file.......');
 
     final outputFile = File('${dir2.path}/$screenFileName.dart');
     await outputFile.writeAsString(screenContext);
 
-    log('screen added successfully ✅');
+    print('screen added successfully ✅');
 
-    log('✅ File created at ${outputFile.path}');
+    print('✅ File created at ${outputFile.path}');
   } catch (e, stackTrace) {
-    log('Exception: $e $stackTrace');
+    print('Exception: $e $stackTrace');
   }
 }
 
