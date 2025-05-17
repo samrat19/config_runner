@@ -7,6 +7,10 @@
 
 ---
 
+![Pub Version](https://img.shields.io/pub/v/config_runner)
+![Build Status](https://img.shields.io/github/workflow/status/yourusername/config_runner/CI)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 ## ✨ Features
 
 - 🛠️ Generate environment-specific configurations (`dev`, `uat`, `prod`) with base API URLs.
